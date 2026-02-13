@@ -1,6 +1,11 @@
-Successfully tagged kubsh1:latest
-yakini@yakini-VirtualBox:~/shell$ docker run -it --rm privileged kubsh1
-Unable to find image 'privileged:latest' locally
-docker: Error response from daemon: pull access denied for privileged, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
-
-Run 'docker run --help' for more information
+yakini@yakini-VirtualBox:~/shell$ docker run -it --rm --privileged kubsh1
+[VFS] Creating: /root/users
+[VFS] User nobody synchronized
+[VFS] User testuser synchronized
+[VFS] Ready
+Kubsh started. Type \q to quit.
+[VFS] New: nobody
+[VFS] User nobody already exists
+[VFS] New: testuser
+[VFS] User testuser already exists
+kubsh> 
