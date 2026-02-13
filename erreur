@@ -1,0 +1,116 @@
+ docker build -t kubsh1 .
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  94.72kB
+Step 1/11 : FROM ubuntu:22.04 AS builder
+ ---> 9fa3e2b5204f
+Step 2/11 : RUN apt-get update && apt-get install -y     build-essential     libreadline-dev     git     && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 1618b5375077
+Step 3/11 : WORKDIR /app
+ ---> Using cache
+ ---> 8a80b704c28d
+Step 4/11 : COPY . .
+ ---> b36058a8bc71
+Step 5/11 : RUN make clean && make
+ ---> Running in 196172f9d2be
+rm -f kubsh
+gcc -Wall -Wextra -g -o kubsh kubsh.c vfs.c -lreadline
+vfs.c: In function 'create_user_files':
+vfs.c:29:48: warning: 'snprintf' output may be truncated before the last format character [-Wformat-truncation=]
+   29 |     snprintf(user_dir, sizeof(user_dir), "%s/%s", vfs_base_path, username);
+      |                                                ^
+vfs.c:29:5: note: 'snprintf' output 2 or more bytes (assuming 513) into a destination of size 512
+   29 |     snprintf(user_dir, sizeof(user_dir), "%s/%s", vfs_base_path, username);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c:37:43: warning: '/id' directive output may be truncated writing 3 bytes into a region of size between 1 and 512 [-Wformat-truncation=]
+   37 |     snprintf(id_file, sizeof(id_file), "%s/id", user_dir);
+      |                                           ^~~
+vfs.c:37:5: note: 'snprintf' output between 4 and 515 bytes into a destination of size 512
+   37 |     snprintf(id_file, sizeof(id_file), "%s/id", user_dir);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c:45:47: warning: '/home' directive output may be truncated writing 5 bytes into a region of size between 1 and 512 [-Wformat-truncation=]
+   45 |     snprintf(home_file, sizeof(home_file), "%s/home", user_dir);
+      |                                               ^~~~~
+vfs.c:45:5: note: 'snprintf' output between 6 and 517 bytes into a destination of size 512
+   45 |     snprintf(home_file, sizeof(home_file), "%s/home", user_dir);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c:53:49: warning: '/shell' directive output may be truncated writing 6 bytes into a region of size between 1 and 512 [-Wformat-truncation=]
+   53 |     snprintf(shell_file, sizeof(shell_file), "%s/shell", user_dir);
+      |                                                 ^~~~~~
+vfs.c:53:5: note: 'snprintf' output between 7 and 518 bytes into a destination of size 512
+   53 |     snprintf(shell_file, sizeof(shell_file), "%s/shell", user_dir);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c: In function 'remove_user_files':
+vfs.c:66:48: warning: 'snprintf' output may be truncated before the last format character [-Wformat-truncation=]
+   66 |     snprintf(user_dir, sizeof(user_dir), "%s/%s", vfs_base_path, username);
+      |                                                ^
+vfs.c:66:5: note: 'snprintf' output 2 or more bytes (assuming 513) into a destination of size 512
+   66 |     snprintf(user_dir, sizeof(user_dir), "%s/%s", vfs_base_path, username);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c:69:43: warning: '/id' directive output may be truncated writing 3 bytes into a region of size between 1 and 512 [-Wformat-truncation=]
+   69 |     snprintf(id_file, sizeof(id_file), "%s/id", user_dir);
+      |                                           ^~~
+vfs.c:69:5: note: 'snprintf' output between 4 and 515 bytes into a destination of size 512
+   69 |     snprintf(id_file, sizeof(id_file), "%s/id", user_dir);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c:70:47: warning: '/home' directive output may be truncated writing 5 bytes into a region of size between 1 and 512 [-Wformat-truncation=]
+   70 |     snprintf(home_file, sizeof(home_file), "%s/home", user_dir);
+      |                                               ^~~~~
+vfs.c:70:5: note: 'snprintf' output between 6 and 517 bytes into a destination of size 512
+   70 |     snprintf(home_file, sizeof(home_file), "%s/home", user_dir);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c:71:49: warning: '/shell' directive output may be truncated writing 6 bytes into a region of size between 1 and 512 [-Wformat-truncation=]
+   71 |     snprintf(shell_file, sizeof(shell_file), "%s/shell", user_dir);
+      |                                                 ^~~~~~
+vfs.c:71:5: note: 'snprintf' output between 7 and 518 bytes into a destination of size 512
+   71 |     snprintf(shell_file, sizeof(shell_file), "%s/shell", user_dir);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c: In function 'vfs_list_users':
+vfs.c:303:54: warning: '%s' directive output may be truncated writing up to 255 bytes into a region of size between 0 and 511 [-Wformat-truncation=]
+  303 |             snprintf(user_dir, sizeof(user_dir), "%s/%s", vfs_base_path, entry->d_name);
+      |                                                      ^~
+vfs.c:303:13: note: 'snprintf' output between 2 and 768 bytes into a destination of size 512
+  303 |             snprintf(user_dir, sizeof(user_dir), "%s/%s", vfs_base_path, entry->d_name);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c:308:51: warning: '/id' directive output may be truncated writing 3 bytes into a region of size between 1 and 512 [-Wformat-truncation=]
+  308 |             snprintf(id_file, sizeof(id_file), "%s/id", user_dir);
+      |                                                   ^~~
+vfs.c:308:13: note: 'snprintf' output between 4 and 515 bytes into a destination of size 512
+  308 |             snprintf(id_file, sizeof(id_file), "%s/id", user_dir);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c:309:55: warning: '/home' directive output may be truncated writing 5 bytes into a region of size between 1 and 512 [-Wformat-truncation=]
+  309 |             snprintf(home_file, sizeof(home_file), "%s/home", user_dir);
+      |                                                       ^~~~~
+vfs.c:309:13: note: 'snprintf' output between 6 and 517 bytes into a destination of size 512
+  309 |             snprintf(home_file, sizeof(home_file), "%s/home", user_dir);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vfs.c:310:57: warning: '/shell' directive output may be truncated writing 6 bytes into a region of size between 1 and 512 [-Wformat-truncation=]
+  310 |             snprintf(shell_file, sizeof(shell_file), "%s/shell", user_dir);
+      |                                                         ^~~~~~
+vfs.c:310:13: note: 'snprintf' output between 7 and 518 bytes into a destination of size 512
+  310 |             snprintf(shell_file, sizeof(shell_file), "%s/shell", user_dir);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ---> Removed intermediate container 196172f9d2be
+ ---> 5bd3a0d70a2e
+Step 6/11 : FROM ubuntu:22.04
+ ---> 9fa3e2b5204f
+Step 7/11 : RUN apt-get update && apt-get install -y     libreadline8     sudo     fdisk     util-linux     && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> e292f9af37f8
+Step 8/11 : COPY --from=builder /app/kubsh /usr/local/bin/kubsh
+ ---> Using cache
+ ---> af72418c9ec8
+Step 9/11 : RUN useradd -m -s /bin/bash testuser
+ ---> Using cache
+ ---> e2ce4c6c3592
+Step 10/11 : WORKDIR /root
+ ---> Using cache
+ ---> e08eafcafd8e
+Step 11/11 : CMD ["kubsh"]
+ ---> Using cache
+ ---> 307fd82e83b3
+Successfully built 307fd82e83b3
+Successfully tagged kubsh1:latest
